@@ -9,7 +9,7 @@ config = {
     'url': 'http://leosantos.org',
     'download_url': 'https://github.com/laugustogs/CREPE',
     'author_email': 'me@leosantos.org',
-    'version': '0.1',
+    'version': '0.1.141231',
     'install_requires': ['nose','numpy','scipy'],
     'packages': ['crepe'],
     'name': 'crepe'
