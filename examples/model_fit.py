@@ -1,5 +1,5 @@
 import numpy as np
-import optimize
+from crepe import optimize
 import matplotlib.pyplot as plt
 
 n = optimize.normal()
