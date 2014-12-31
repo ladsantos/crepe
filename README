@@ -1,38 +1,6 @@
-Pysics is a simple project whose main goal is to help students to practice Physics and programming in a fun way: away from school. Why? The majority of schools are stuck in the old, broken ways of the traditional "learning", where the students are being taught instead of learning (there's a huge difference between those things).
+CREPE: CRoss-Entropy Parameter Estimation is a project aiming to create a simple yet powerful global optimization tool.
 
-I'm also learning a lot with this project. You are free to join this journey! 
-
-Pysics is compatible with Python 2.7. Compatibility with other versions of Python is not yet verified. Required packages: 'nose', 'numpy'. Recommended packages: 'matplotlib', 'pip'.
-
-Any contribution is very welcome!
-
-Recent changes:
-
-*v. 0.2: Doing a major revamp on the project
-    * Remove things that are already implemented by other major packages (such as the integration methods, constants library etc.)
-    * Addition of programs more applied to physics
-    * cosmo.evolution.friedmann() now uses scipy's Gaussian quadrature
-    * mmeth obsoleted
-    * clib obsoleted
-    * New package: optimize
-
-*v. 0.1.140322:
-    * integc.py merged with diffc.py and now it's named diffc.py (standing for 'differential calculus')
-    * The integration with user-defined precision now is optmized to not do unwanted computation if your data already have enough resolution
-
-*v. 0.1.140319:
-	* integc.py's integrate module now has new routines to calculate integrals, they're more robust and support user-defined accuracy
-
-*v. 0.1.140309:
-	* Changed the main package to pysics, instead of a bunch of main packages with different names, now those are subpackages, making the project to have a more familiar structure.
-	* Added a fit.py routine. For now, it only does linear fitting.
+CREPE is compatible with Python 2.7. Compatibility with other versions of Python is not yet verified. Required packages: 'nose', 'numpy'. Recommended packages: 'matplotlib', 'pip'.
 
 Known issues:
-* compton() will not work with energies that are too many orders of magnitude smaller than the defined electron rest energy. I think that's a limitation of Python (which handles up to 16 significant figures at max).
-* You might notice that I tend to mix lists and arrays. I should not be doing that, for reasons of consistency and I promise I will fix them in due time.
-* special() might generate a lot of errors (noise) when dealing with Legendre associated functions of high orders and small values of dx or dtheta. This is a related to the numerical method used to calculate derivatives. You can work this around by using higher dx or dtheta (~0.01, for instance) when dealing with high orders (>3).
-
-Currently working on:
-* adding some simulations
-* adding a cosmology module ('cosmo')
-* adding new fitting routines and a simpler linear fit (which does not require uncertainties)
+* None so far
