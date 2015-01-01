@@ -18,6 +18,14 @@ y = np.array([f(xk,true_a,true_b)+np.random.normal(scale=noise_sigma) for xk in 
 true_y = np.array([f(xk,true_a,true_b) for xk in x])
 data = np.array([[x[i],y[i]] for i in range(N)])
 
+""" This section saves the data to the file data.dat
+f = open('data.dat','rwx+')
+f.truncate()
+for i in range(N):
+    f.write("%.5E\t\t%.5E\t\t%.5E\n" % (x[i],y[i],true_y[i]))
+f.close()
+"""
+
 # Now, let's guess a and b
 p_min = np.array([5.0,2.0])       # Parameters minima
 p_max = np.array([10.0,10.0])     # Parameters maxima
