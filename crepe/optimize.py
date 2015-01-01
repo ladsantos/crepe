@@ -4,11 +4,9 @@ import matplotlib.pyplot as plt
 
 class normal(object):
     
-    # func = function to be fitted
     # perf = performance function
     # p_mean = vector containing the mean of each parameter
     # p_sigma = vector containing the spread of each parameter
-    # N = number of samples to be drawn
     
     # Optional:
     # N = number of samples to be drawn. Default = 100
