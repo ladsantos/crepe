@@ -1,10 +1,21 @@
-CREPE: CRoss-Entropy Parameter Estimation is a project aiming to create a simple yet powerful global optimization tool.
+# CREPE
+
+CRoss-Entropy Parameter Estimation is a project aiming to create a simple yet powerful global optimization tool.
+
+Installation
+------------
 
 CREPE is compatible with Python 2.7. Compatibility with other versions of Python is not yet verified. Required packages: 'nose', 'numpy'. Recommended packages: 'matplotlib', 'pip'.
 
-Known issues:
-* The program doesn't know how to deal with infinities and roots of negatives
+Use git to grab the latest version of CREPE (you might need administrative rights to install it - in that case, use sudo):
+
+    git clone https://github.com/laugustogs/crepe.git
+    cd crepe
+    python setup.py install
+
 
 To be added in the future:
+------------
+
 * Creating standard performance functions
 * Multi-variate gaussian distributions
