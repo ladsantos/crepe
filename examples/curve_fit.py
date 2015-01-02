@@ -6,7 +6,7 @@ n = optimize.normal()
 
 # Function to be simulated
 def f(x,a,b):
-    return a*np.sin(x)+b
+    return np.sin(a*x+b)
 
 # Generating noisy data
 N = 500
@@ -27,17 +27,17 @@ f.close()
 """
 
 # Now, let's guess a and b
-p_min = np.array([5.0,2.0])       # Parameters minima
-p_max = np.array([10.0,10.0])     # Parameters maxima
+p_min = np.array([1.0,5.0])       # Parameters minima
+p_max = np.array([5.0,12.0])     # Parameters maxima
 p_mean = (p_min + p_max)/2.         # Parameters means
 p_sigma = (p_max - p_min)/2.        # Parameters standard deviations
 
 # Here a few tweaks that I want to use
-a = 0.7                       # Smoothing factor, between 0 and 1
-b = 0.14                       # Smoothing power, between ~5 and ~10
-c = 0.1                     # Lower limit for the change in parameter estimation
+a = 0.9                       # Smoothing factor, between 0 and 1
+b = 0.1                      # Smoothing power, between ~1/10 and 1/5
+c = 0.001                     # Lower limit for the change in parameter estimation
 k = 20                        # Max number of iterations
-r = 0.1                         # Sample quantile that will define elite
+r = 0.05                         # Sample quantile that will define elite
 
 # The performance function - probably the hardest part
 def perf(p):
