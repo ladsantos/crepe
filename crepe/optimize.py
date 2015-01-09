@@ -74,6 +74,7 @@ class normal(object):
             self.check = np.abs(self.q-self.q0)/self.q
             self.q0 = self.q
             self.ind = np.nonzero(self.S < self.q)
+            self.w = self.S**(-2)
             
             self.I = np.zeros(self.N,float)
             for i in range(len(self.ind)):
@@ -81,12 +82,12 @@ class normal(object):
                 
             # Calculating the new parameters mean vector
             self.p_mean_prev = p_mean
-            p_mean = np.array([np.sum(self.I*self.p[:,j])/np.sum(self.I) for j in range(self.PN)])
+            p_mean = np.array([np.sum(self.I*self.w*self.p[:,j])/np.sum(self.I*self.w) for j in range(self.PN)])
             p_mean = self.alpha*p_mean + (1.-self.alpha)*self.p_mean_prev
             
             # Calculating the new sigmas
             self.sigma_prev = p_sigma
-            p_sigma = np.array([np.sqrt(np.sum(self.I*(p_mean[j]-self.p[:,j])**2)/np.sum(self.I)) for j in range(self.PN)])
+            p_sigma = np.array([np.sqrt(np.sum(self.I*self.w*(p_mean[j]-self.p[:,j])**2)/np.sum(self.I*self.w)) for j in range(self.PN)])
             self.alpha_d = self.alpha-self.alpha*(1-self.k**(-1))**(1.0/self.beta)
             p_sigma = self.alpha_d*p_sigma + (1.0-self.alpha_d)*self.sigma_prev
                 
