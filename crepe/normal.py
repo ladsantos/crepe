@@ -1,8 +1,11 @@
-import numpy as np
-import scipy.special as sp
-import matplotlib.pyplot as plt
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-class normal(object):
+import numpy as np
+
+# Single-variate normal distributions #####################################
+
+class optimize(object):
     
     # perf = performance function
     # p_mean = vector containing the mean of each parameter
@@ -57,22 +60,23 @@ class normal(object):
             self.silent = False
         
         # Starting a few helpful variables
-        self.check = 1.0
-        self.q0 = 0.0
-        self.k = 0
-        self.PN = len(p_mean)   # Number of parameters
+        check = 1.0
+        q0 = 0.0
+        k = 0
+        PN = len(p_mean)   # Number of parameters
         
         # Starting the iteration
         
-        while self.check > self.c_limit and self.k < self.k_max:
+        while check > self.c_limit and k < self.k_max:
             
-            self.k += 1
-            self.p = np.array([[p_mean[i] + p_sigma[i]*np.random.normal() for i in range(self.PN)] for j in range(self.N)])
+            k += 1
+            self.p = np.array([[p_mean[i] + p_sigma[i]*np.random.normal() \
+                for i in range(PN)] for j in range(self.N)])
             self.S = np.array([perf(self.p[j,:]) for j in range(self.N)])
             self.sorted_S = np.sort(self.S)
             self.q = self.sorted_S[np.int(self.N*self.rho)]
-            self.check = np.abs(self.q-self.q0)/self.q
-            self.q0 = self.q
+            check = np.abs(self.q-q0)/self.q
+            q0 = self.q
             self.ind = np.nonzero(self.S < self.q)
             self.w = self.S**(-2)
             
@@ -82,18 +86,20 @@ class normal(object):
                 
             # Calculating the new parameters mean vector
             self.p_mean_prev = p_mean
-            p_mean = np.array([np.sum(self.I*self.w*self.p[:,j])/np.sum(self.I*self.w) for j in range(self.PN)])
+            p_mean = np.array([np.sum(self.I*self.w*self.p[:,j])/np.sum(self.I*self.w) \
+                for j in range(PN)])
             p_mean = self.alpha*p_mean + (1.-self.alpha)*self.p_mean_prev
             
             # Calculating the new sigmas
             self.sigma_prev = p_sigma
-            p_sigma = np.array([np.sqrt(np.sum(self.I*self.w*(p_mean[j]-self.p[:,j])**2)/np.sum(self.I*self.w)) for j in range(self.PN)])
-            self.alpha_d = self.alpha-self.alpha*(1-self.k**(-1))**(1.0/self.beta)
+            p_sigma = np.array([np.sqrt(np.sum(self.I*self.w*(p_mean[j]-self.p[:,j])**2)/np.sum(self.I*self.w)) \
+                for j in range(PN)])
+            self.alpha_d = self.alpha-self.alpha*(1-k**(-1))**(1.0/self.beta)
             p_sigma = self.alpha_d*p_sigma + (1.0-self.alpha_d)*self.sigma_prev
                 
-        if self.silent == False and self.k == self.k_max:
+        if self.silent == False and k == self.k_max:
             print 'Max iteration limit reached.'
-        elif self.silent == False and self.k < self.k_max:
-            print "CREPE's number of iterations = %i" % self.k
+        elif self.silent == False and k < self.k_max:
+            print "CREPE's number of iterations = %i" % k
         
         return p_mean,p_sigma
