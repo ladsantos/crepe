@@ -17,5 +17,6 @@ Use git to grab the latest version of CREPE (you might need administrative right
 To be added in the future:
 ------------
 
-* Creating standard performance functions
-* Multi-variate gaussian distributions
+* docs.Manual: Hacks to avoid falling in local minima
+* crepe: Creating standard performance functions
+* crepe: Multi-variate gaussian distributions
