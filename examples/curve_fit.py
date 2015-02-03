@@ -1,8 +1,8 @@
 import numpy as np
-from crepe import optimize
+from crepe import normal
 import matplotlib.pyplot as plt
 
-n = optimize.normal()
+n = normal.optimize()
 
 # Function to be simulated
 def f(x,a,b):

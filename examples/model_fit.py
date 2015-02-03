@@ -1,8 +1,8 @@
 import numpy as np
-from crepe import optimize
+from crepe import normal
 import matplotlib.pyplot as plt
 
-n = optimize.normal()
+n = normal.optimize()
 
 # Emission lines wavelengths
 lA = 6650.      # Element A
