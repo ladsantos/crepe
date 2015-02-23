@@ -45,7 +45,9 @@ def perf(p):
     Rmean = np.sum(R)/N
     return Rmean*(1./N)*np.sum((R-Rmean)**2)
 
-new_p_mean,new_p_sigma = n.estimate(perf,p_mean,p_sigma,alpha=a,beta=b,c_limit=c,k_max=k,rho=r)
+new_p_mean,new_p_sigma = n.estimate(
+    perf,p_mean,p_sigma,alpha=a,beta=b,c_limit=c,k_max=k,rho=r,verbose=True
+    )
 print 'a = %.3f p/m %.3f' % (new_p_mean[0],new_p_sigma[0])
 print 'b = %.3f p/m %.3f' % (new_p_mean[1],new_p_sigma[1])
 
