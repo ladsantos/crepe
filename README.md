@@ -18,5 +18,6 @@ To be added in the future:
 ------------
 
 * docs.Manual: Hacks to avoid falling in local minima
+* Tools for analyzing the results produced by CREPE
 * crepe: Creating standard performance functions
 * crepe: Multi-variate gaussian distributions
