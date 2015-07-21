@@ -13,11 +13,14 @@ Use git to grab the latest version of CREPE (you might need administrative right
     cd crepe
     python setup.py install
 
+Changelog:
+------------
+
+* 0.1.150721: corrected an incorrect implementation of the I matrix (which selects the elite sample). It was missing a [0].
 
 To be added in the future:
 ------------
 
 * docs.Manual: Hacks to avoid falling in local minima
-* Tools for analyzing the results produced by CREPE
 * crepe: Creating standard performance functions
 * crepe: Multi-variate gaussian distributions

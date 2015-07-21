@@ -6,11 +6,10 @@ except ImportError:
 config = {
     'description': 'CREPE: CRoss-Entropy Parameter Estimation',
     'author': 'Leonardo dos Santos',
-    'url': 'http://leosantos.org',
     'download_url': 'https://github.com/laugustogs/CREPE',
-    'author_email': 'me@leosantos.org',
-    'version': '0.1.150223',
-    'install_requires': ['nose','numpy','scipy'],
+    'author_email': 'leonardoags@usp.br',
+    'version': '0.1.150721',
+    'install_requires': ['numpy','scipy'],
     'packages': ['crepe'],
     'name': 'crepe'
 }
