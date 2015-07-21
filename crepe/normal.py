@@ -105,7 +105,7 @@ class optimize(object):
             
             self.I = np.zeros(self.N,float)
             for i in range(len(self.ind)):
-                self.I[self.ind[i]] = 1.0
+                self.I[self.ind[0][i]] = 1.0
             # Matrix I selects the elite sample (by multiplication)
                 
             # Calculating the new parameters mean vector
