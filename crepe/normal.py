@@ -19,7 +19,7 @@ class optimize(object):
     # N = number of samples to be drawn. Default = 100
     # rho = sample lower quantile that will define the elite results. 
         # Default = 0.1
-    # c_limit = lower limit for the relative change in the performance. 
+    # s_limit = desired lower limit for sigma. 
         # Default = 0.1
     # k_max = maximum number of iterations. Default = 50
     # alpha = smoothing factor, between 0 and 1. Default = 1.0
@@ -41,10 +41,10 @@ class optimize(object):
         else:
             self.rho = 0.1
         
-        if ('c_limit' in kwargs):
-            self.c_limit = kwargs['c_limit']
+        if ('s_limit' in kwargs):
+            self.s_limit = kwargs['s_limit']
         else:
-            self.c_limit = 0.1
+            self.s_limit = 0.1
                     
         if ('k_max' in kwargs):
             self.k_max = kwargs['k_max']
@@ -74,7 +74,7 @@ class optimize(object):
         
         # Starting the iteration
         
-        while check > self.c_limit and k < self.k_max:
+        while check > self.s_limit and k < self.k_max:
             
             k += 1      # iteration counter
             
@@ -95,7 +95,7 @@ class optimize(object):
             self.S = np.array([perf(self.p[j,:]) for j in range(self.N)])
             self.sorted_S = np.sort(self.S)
             self.q = self.sorted_S[np.int(self.N*self.rho)]
-            check = np.abs(self.q-q0)/self.q    
+            #check = np.abs(self.q-q0)/self.q    
             q0 = self.q
             self.ind = np.nonzero(self.S < self.q)
             self.w = self.S**(-2)
@@ -104,7 +104,8 @@ class optimize(object):
                 print "Iteration %i, change = %.3E" % (k,check)
             
             self.I = np.zeros(self.N,float)
-            for i in range(len(self.ind)):
+            
+            for i in range(len(self.ind[0])):
                 self.I[self.ind[0][i]] = 1.0
             # Matrix I selects the elite sample (by multiplication)
                 
@@ -124,7 +125,8 @@ class optimize(object):
             ])
             self.alpha_d = self.alpha-self.alpha*(1-k**(-1))**(1.0/self.beta)
             p_sigma = self.alpha_d*p_sigma + (1.0-self.alpha_d)*self.sigma_prev
-                
+            check = min(p_sigma)
+        
         if self.verbose == True and k == self.k_max:
             print 'Max iteration limit reached.'
         elif self.verbose == True and k < self.k_max:
