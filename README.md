@@ -16,7 +16,8 @@ Use git to grab the latest version of CREPE (you might need administrative right
 Changelog:
 ------------
 
-* 0.1.150721: corrected an incorrect implementation of the I matrix (which selects the elite sample). It was missing a [0].
+* 0.1.150822: corrected an incorrect implementation of the I matrix (which selects the elite sample). It was missing a [0].
+* 0.1.150822: CREPE now uses the lower limit in sigma as a test for convergence
 
 To be added in the future:
 ------------
