@@ -35,8 +35,6 @@ p_sigma = (p_max - p_min)/2.        # Parameters standard deviations
 # Here a few tweaks that I want to use
 a = 0.9                       # Smoothing factor, between 0 and 1
 b = 0.1                      # Smoothing power, between ~1/10 and 1/5
-c = 0.001                     # Lower limit for the change in parameter estimation
-k = 20                        # Max number of iterations
 r = 0.05                         # Sample quantile that will define elite
 
 # The performance function - probably the hardest part
@@ -46,7 +44,7 @@ def perf(p):
     return Rmean*(1./N)*np.sum((R-Rmean)**2)
 
 new_p_mean,new_p_sigma = n.estimate(
-    perf,p_mean,p_sigma,alpha=a,beta=b,c_limit=c,k_max=k,rho=r,verbose=True
+    perf,p_mean,p_sigma,alpha=a,beta=b,rho=r,verbose=True
     )
 print 'a = %.3f p/m %.3f' % (new_p_mean[0],new_p_sigma[0])
 print 'b = %.3f p/m %.3f' % (new_p_mean[1],new_p_sigma[1])
