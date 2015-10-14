@@ -10,6 +10,11 @@
 import numpy as np
 
 class optimize(object):
+
+    """
+    Used to do optimization of independent parameters in a multi-parameter
+    problem. 
+    """
     
     # perf = performance function
     # p_mean = vector containing the mean of each parameter
@@ -19,8 +24,8 @@ class optimize(object):
     # N = number of samples to be drawn. Default = 100
     # rho = sample lower quantile that will define the elite results. 
         # Default = 0.1
-    # s_limit = desired lower limit for sigma. 
-        # Default = 0.1
+    # s_limit = desired lower limit for precision. 
+        # Default = 0.01
     # k_max = maximum number of iterations. Default = 50
     # alpha = smoothing factor, between 0 and 1. Default = 1.0
     # beta = smoothing level, between ~0.1 and ~0.2 Default = 0.1
@@ -28,6 +33,10 @@ class optimize(object):
         # terminal. Default = False
     
     def estimate(self,perf,p_mean,p_sigma,**kwargs):
+
+        """
+        Method used to performs the actual estimation of parameters.
+        """
         
         # Defaulting the kwargs
         
@@ -44,7 +53,7 @@ class optimize(object):
         if ('s_limit' in kwargs):
             self.s_limit = kwargs['s_limit']
         else:
-            self.s_limit = 0.1
+            self.s_limit = 0.01
                     
         if ('k_max' in kwargs):
             self.k_max = kwargs['k_max']
@@ -65,6 +74,11 @@ class optimize(object):
             self.verbose = kwargs['verbose']
         else:
             self.verbose = False
+            
+        if ('c_opt' in kwargs):
+            self.c_opt = kwargs['c_opt']
+        else:
+            self.c_opt = None
         
         # Starting a few helpful variables
         check = 1.0
@@ -83,32 +97,30 @@ class optimize(object):
                 [p_mean[i] + p_sigma[i]*np.random.normal() \
                 for i in range(PN)] for j in range(self.N)
             ])
-            
             # Following lines:
             # 1) Performance evaluation
             # 2) Sort the performances
             # 3) Get a sample quantile (which will be the elite)
-            # 4) Calculate the relative changes
-            # 5) Re-evaluates q0
-            # 6) Get the indices of the elite sample
-            # 7) Get the inverse squared performances (used in calculation)
+            # 4) Get the indices of the elite sample
+            # 5) Get the inverse squared performances (used in calculation)
             self.S = np.array([perf(self.p[j,:]) for j in range(self.N)])
             self.sorted_S = np.sort(self.S)
             self.q = self.sorted_S[np.int(self.N*self.rho)]
-            #check = np.abs(self.q-q0)/self.q    
-            q0 = self.q
             self.ind = np.nonzero(self.S < self.q)
             self.w = self.S**(-2)
             
-            if self.verbose == True:
-                print "Iteration %i, change = %.3E" % (k,check)
+            
+            if self.verbose == True and k > 1:
+                #self.sop = p_sigma/p_mean
+                print "Iteration %i, sigma/mean = %.3E" % (k,check)
             
             self.I = np.zeros(self.N,float)
             
             for i in range(len(self.ind[0])):
                 self.I[self.ind[0][i]] = 1.0
             # Matrix I selects the elite sample (by multiplication)
-                
+            
+            print np.sum(self.I)
             # Calculating the new parameters mean vector
             self.p_mean_prev = p_mean
             p_mean = np.array([
@@ -125,7 +137,10 @@ class optimize(object):
             ])
             self.alpha_d = self.alpha-self.alpha*(1-k**(-1))**(1.0/self.beta)
             p_sigma = self.alpha_d*p_sigma + (1.0-self.alpha_d)*self.sigma_prev
-            check = min(p_sigma)
+            if self.c_opt == None:
+                check = min(abs(p_sigma/p_mean))
+            else:
+                check = p_sigma[self.c_opt]/p_mean[self.c_opt]
         
         if self.verbose == True and k == self.k_max:
             print 'Max iteration limit reached.'
