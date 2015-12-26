@@ -112,7 +112,7 @@ class optimize(object):
             
             if self.verbose == True and k > 1:
                 #self.sop = p_sigma/p_mean
-                print "Iteration %i, sigma/mean = %.3E" % (k,check)
+                print("Iteration %i, sigma/mean = %.3E" % (k,check))
             
             self.I = np.zeros(self.N,float)
             
@@ -120,7 +120,6 @@ class optimize(object):
                 self.I[self.ind[0][i]] = 1.0
             # Matrix I selects the elite sample (by multiplication)
             
-            print np.sum(self.I)
             # Calculating the new parameters mean vector
             self.p_mean_prev = p_mean
             p_mean = np.array([
@@ -143,8 +142,8 @@ class optimize(object):
                 check = p_sigma[self.c_opt]/p_mean[self.c_opt]
         
         if self.verbose == True and k == self.k_max:
-            print 'Max iteration limit reached.'
+            print('Max iteration limit reached.')
         elif self.verbose == True and k < self.k_max:
-            print "CREPE's number of iterations = %i" % k
+            print("CREPE's number of iterations = %i" % k)
         
         return p_mean,p_sigma

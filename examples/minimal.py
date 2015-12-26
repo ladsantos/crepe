@@ -10,7 +10,7 @@ N = len(data[:,0])
 
 # Function to be simulated
 def f(x,a,b):
-    return a*np.sin(x)+b
+    return a*np.exp(b*x)
 
 # The performance function: just a simple sum of the squared differences!
 def perf(p):
@@ -26,10 +26,10 @@ p_sigma = (p_max - p_min)/2.    # Parameters standard deviations
 new_p_mean,new_p_sigma = n.estimate(perf,p_mean,p_sigma)
 
 # Printing and plotting the results
-print 'a = %.3f p/m %.3f' % (new_p_mean[0],new_p_sigma[0])
-print 'b = %.3f p/m %.3f' % (new_p_mean[1],new_p_sigma[1])
+print('a = %.3f p/m %.3f' % (new_p_mean[0],new_p_sigma[0]))
+print('b = %.3f p/m %.3f' % (new_p_mean[1],new_p_sigma[1]))
 estim_y = np.array([f(xk,new_p_mean[0],new_p_mean[1]) for xk in data[:,0]])
 plt.plot(data[:,0],data[:,1],'.',label='Noisy signal')
 plt.plot(data[:,0],estim_y,'g',label='Fitted signal')
 plt.legend()
-plt.show()
+#plt.show()
